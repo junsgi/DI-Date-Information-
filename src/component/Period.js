@@ -5,7 +5,7 @@ const Period = ({updateStEd, startEnd}) => {
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">
                 <div className="max-w-md">
-                    <h1 className="text-5xl font-bold mb-10">언제부터 언제까지?</h1>
+                    <h1 className="text-6xl font-bold mb-10">언제부터 언제까지?</h1>
                     <br></br>
                     <input type="date" name = "start" onChange={updateStEd} value = {startEnd.start} className="bg-base-200 rounded-box max-w-xs mr-2" /> ~ 
                     <input type="date" name = "end" onChange={updateStEd} min={startEnd.start} value = {startEnd.end} className="bg-base-200 rounded-box max-w-xs ml-2 mb-5" />

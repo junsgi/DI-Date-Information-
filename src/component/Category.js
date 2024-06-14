@@ -5,7 +5,9 @@ const Category = ({valueArray, updateSelect}) => {
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">
                 <div className="max-w-md">
-                    <h1 className="text-5xl font-bold">{valueArray[1]}, {valueArray[2]}, {valueArray[3]}, &nbsp;{valueArray[4]}, {valueArray[5]} 선택</h1>
+                    <h1 className="text-6xl font-bold">{valueArray[1]}, {valueArray[2]}, {valueArray[3]}</h1>
+                    <h1 className="text-6xl font-bold">{valueArray[4]}, {valueArray[5]} 선택</h1>
+                
                     <br></br>
                     <br></br>
                     <select onChange = {updateSelect} className="select select-bordered w-full max-w-xs">

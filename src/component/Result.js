@@ -1,26 +1,38 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Result = ({ valueArray, startEnd, select, pathArray }) => {
     const URL = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/';
-    
+    const [data, setData] = useState({
+        items : { item : [] },
+        numOfRows : 0,
+        pageNo : 0,
+        totalCount : 0
+    });
     const get = async () => {
         let url = URL + pathArray[select];
         let YMD = startEnd.start.split("-");
         var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + process.env.REACT_APP_KEY; /*Service Key*/
         queryParams += '&' + encodeURIComponent("_type") + '=' + encodeURIComponent('json');
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
-        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('31'); /**/
+        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('100'); /**/
         queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(YMD[0]); /**/
         queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(YMD[1]); /**/
-        
+        console.log(url + queryParams)
         await axios.get(url + queryParams)
-        .then(res => {
-            console.log(res)
-            console.log(res.data.response.body.items.item)
-            console.log(typeof(res.data.response.body.items.item))
+        .then(res =>{ 
+            if (typeof res.data === "string") return {header : {resultCode : "20"}}
+            else return res.data.response
         })
+        .then(res => {
+            if (res.header.resultCode === '00') {
+                console.log(res.body.items)
+            }else {
+                alert('다시 시도해주세요')
+            }
+        })
+        .catch(e => console.error(e))
     }
     useEffect(() => {
         if (select > 0) get();

@@ -13,10 +13,12 @@ function App() {
   const select = useRef(0);
   const [startEnd, SetStartEnd] = useState({start : "", end : ""});
   const updateSelect = useCallback(e => {select.current = parseInt(e.target.value)}, [select.current]);
-  const updateStEd = useCallback(e => SetStartEnd(pre => { return {...pre, [e.target.name] : e.target.value}}), []);
-  const 끝 = () => {
-    alert(valueArray[select.current] + " " + startEnd.start + " ~ " + startEnd.end);
-  }
+  const updateStEd = useCallback(e => {
+    SetStartEnd(pre => { 
+      if (e.target.name === "start") return {start : e.target.value, end : e.target.value}
+      else return {...pre, [e.target.name] : e.target.value} 
+    })
+  }, []);
 
   return (
     <div className="App">
