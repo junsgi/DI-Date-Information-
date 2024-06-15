@@ -18,7 +18,7 @@ function App() {
       if (e.target.name === "start") return {start : e.target.value, end : e.target.value}
       else return {...pre, [e.target.name] : e.target.value} 
     })
-  }, []);
+  }, [startEnd]);
 
   return (
     <div className="App">
@@ -33,7 +33,7 @@ function App() {
         <Route path='/result' element={<Result 
                                             valueArray = {valueArray}
                                             startEnd = {startEnd}
-                                            select = {select.current}
+                                            select = {select}
                                             pathArray = {pathArray} />}></Route>
       </Routes>
     </div>
