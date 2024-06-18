@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import TimeLine from "./TimeLine";
 
 const Result = ({ startEnd }) => {
-    const URL = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo';
+    const URL = useMemo(()=>'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo', []);
     /*
     list item
     {
@@ -30,6 +30,7 @@ const Result = ({ startEnd }) => {
             })
             .then(res => {
                 if (res.header.resultCode === '00') {
+                    
                     let result = []
                     if (res.body.totalCount === 1) {
                         result = [res.body.items.item];
@@ -38,11 +39,12 @@ const Result = ({ startEnd }) => {
                         result = res.body.items.item;
                         setList(e => [...e, ...result].filter(e => MIN <= e.locdate && e.locdate <= MAX))
                     }
+
                 } else alert('다시 시도해주세요')
             })
             .catch(e => console.error(e))
     }, [startEnd])
-    const get = async () => {
+    const get = useCallback(async () => {
         let YMDs = startEnd.start.split("-");
         let YMDe = startEnd.end.split("-");
         for(let i = +YMDs[0] ; i <= +YMDe[0] ; i++) {
@@ -69,9 +71,7 @@ const Result = ({ startEnd }) => {
                 await request(URL + queryParams)
             }
         }
-        // setList(e => e.toSorted())
-        
-    }
+    }, [startEnd])
     useEffect(() => {
         get();
         return () => {setList(e => [])}

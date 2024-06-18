@@ -1,5 +1,8 @@
+import { useMemo } from "react";
+
 const TimeLine = ({ list }) => {
-    const print = list.map((it, idx) => {
+
+    const print = useMemo( () => list.map((it, idx) => {
         const year = Math.floor(it.locdate / 10000);
         const month = Math.floor(it.locdate % 10000 / 100);
         const day = Math.floor(it.locdate % 10000 % 100);
@@ -14,7 +17,9 @@ const TimeLine = ({ list }) => {
                 <hr />
             </li>
         );
-    })
+    }), [list]);
+
+
     return (
         <ul className="timeline timeline-vertical">
             {print}

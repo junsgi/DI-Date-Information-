@@ -2,7 +2,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Hello from './component/Hello';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Period from './component/Period';
 import Result from './component/Result';
 
@@ -10,7 +10,7 @@ function App() {
   const [startEnd, SetStartEnd] = useState({start : "", end : ""});
   const updateStEd = useCallback(e => {
     SetStartEnd(pre => { 
-      if (e.target.name === "start") return {start : e.target.value, end : e.target.value}
+      if (e.target.name === "start" && !startEnd.end) return {start : e.target.value, end : e.target.value}
       else return {...pre, [e.target.name] : e.target.value} 
     })
   }, [startEnd]);
