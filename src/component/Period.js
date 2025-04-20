@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Period = ({updateStEd, startEnd}) => {
@@ -17,4 +18,4 @@ const Period = ({updateStEd, startEnd}) => {
     );
 }
 
-export default Period;
+export default React.memo(Period);
