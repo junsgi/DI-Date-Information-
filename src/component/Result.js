@@ -24,7 +24,7 @@ const Result = ({ valueArray, startEnd, select, pathArray }) => {
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('100'); /**/
         queryParams += '&' + encodeURIComponent('solYear') + '=' + encodeURIComponent(YMD[0]); /**/
         queryParams += '&' + encodeURIComponent('solMonth') + '=' + encodeURIComponent(YMD[1]); /**/
-
+        console.log(url + queryParams);
         await axios.get(url + queryParams)
         .then(res =>{ 
             console.log(res)
